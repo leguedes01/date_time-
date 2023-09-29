@@ -100,6 +100,52 @@ https://docs.python.org/pt-br/3/library/datetime.html
 7. Analisando datas e horários a partir de strings:
    Você pode converter strings em objetos `datetime` usando `strptime`:
 
+###SISTEMA DE ABERTURA DE CONTA 
+
+class Cliente:
+    def __init__(self, nome, cpf):
+        self.nome = nome
+        self.cpf = cpf
+
+    def __str__(self):
+        return f"Cliente: {self.nome} (CPF: {self.cpf})"
+
+
+class Conta:
+    def __init__(self, numero_conta, titular, saldo=0):
+        self.numero_conta = numero_conta
+        self.titular = titular
+        self.saldo = saldo
+
+    def depositar(self, valor):
+        if valor > 0:
+            self.saldo += valor
+            return f"Depósito de R${valor} realizado. Novo saldo: R${self.saldo}"
+        else:
+            return "Valor de depósito inválido."
+
+    def sacar(self, valor):
+        if 0 < valor <= self.saldo:
+            self.saldo -= valor
+            return f"Saque de R${valor} realizado. Novo saldo: R${self.saldo}"
+        else:
+            return "Saldo insuficiente ou valor de saque inválido."
+
+    def consultar_saldo(self):
+        return f"Saldo da conta de {self.titular.nome}: R${self.saldo}"
+
+
+class Banco:
+    def __init__(self, nome):
+        self.nome = nome
+        self.clientes = {}
+        self.contas = {}
+
+    def adicionar_cliente(self, cliente):
+        if cliente.cpf not in self.clientes:
+            self.clientes[cliente.cpf] = cliente
+            numero_conta = len(self.clientes) * 10  # Número 
+
   
    date_str = "2023-09-27"
    parsed_date = datetime.strptime(date_str, "%Y-%m-%d")
